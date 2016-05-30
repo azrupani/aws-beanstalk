@@ -1,0 +1,92 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	"volumes": [],
+	"containerDefinitions": [
+    	{
+      		"name": "ui_web",
+      		"image": "registry.<ADDME>.<DOMAIN>:5000/syseng/ui_web:CHANGE_ME_WITH_GIT_COMMIT",
+      		"essential": true,
+      		"memory": 128,
+			"portMappings": [
+			{
+			  "hostPort": 80,
+			  "containerPort": 80
+			}
+		  ]
+    	},
+    	{
+      		"name": "ui_planner",
+      		"image": "registry.<ADDME>.<DOMAIN>:5000/syseng/ui_planner:CHANGE_ME_WITH_GIT_COMMIT",
+      		"essential": false,
+      		"memory": 256,
+			"portMappings": [
+			{
+			  "hostPort": 81,
+			  "containerPort": 81
+			}
+		  ]
+    	},
+    	{
+      		"name": "ui_signup",
+      		"image": "registry.<ADDME>.<DOMAIN>:5000/syseng/ui_signup:CHANGE_ME_WITH_GIT_COMMIT",
+      		"essential": false,
+      		"memory": 128,
+			"portMappings": [
+			{
+			  "hostPort": 82,
+			  "containerPort": 82
+			}
+		  ]
+    	},
+    	{
+      		"name": "api_coin",
+      		"image": "registry.<ADDME>.<DOMAIN>:5000/syseng/api_coin:CHANGE_ME_WITH_GIT_COMMIT",
+      		"memory": 256,
+      		"essential": false,
+			"environment": [
+			  {
+				"name": "COIN_PORT",
+				"value": "9090"
+			  },
+			  {
+				"name": "COMMON_PORT",
+				"value": "80"
+			  },
+			  {
+				"name": "COIN_DB_USERNAME",
+				"value": "<ADDME>test"
+			  },
+			  {
+				"name": "COIN_DB_PASSWORD",
+				"value": "<ADDME>"
+			  },
+			  {
+				"name": "COIN_DB_URL",
+				"value": "jdbc:mysql://testsql-rds.<ADDME>.<DOMAIN>/<APP-PREFIX>api_coin_test"
+			  },
+			  {
+				"name": "COIN_DB_MIN_CONNECTION",
+				"value": "1"
+			  },
+			  {
+				"name": "COIN_DB_INITIAL_CONNECTION",
+				"value": "1"
+			  },
+			  {
+				"name": "COIN_DB_MAX_CONNECTION",
+				"value": "15"
+			  },
+			  {
+				"name": "CONTAINER_NAME",
+				"value": "test_api_storeview"
+			  }
+			],
+			"portMappings": [
+			{
+			  "hostPort": 9090,
+			  "containerPort": 9090
+			}
+		  ]
+    	}
+	]
+}

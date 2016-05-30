@@ -1,0 +1,44 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	"volumes": [],
+	"containerDefinitions": [
+    	{
+      		"name": "minions",
+      		"image": "registry.<ADDME>.<DOMAIN>:5000/syseng/minions:CHANGE_ME_WITH_GIT_COMMIT",
+      		"essential": true,
+      		"memory": 256,
+			"environment": [
+			  {
+				"name": "CONTAINER_NAME",
+				"value": "test_minions"
+			  },
+			  {
+				"name": "DB_URL",
+				"value": "jdbc:mysql://testsql-rds.<ADDME>.<DOMAIN>/<ADDME>_test"
+			  },
+			  {
+				"name": "DB_USERNAME",
+				"value": "<ADDME>test"
+			  },
+			]
+    	},
+    	{
+      		"name": "minions_proxy",
+      		"image": "registry.<ADDME>.<DOMAIN>:5000/syseng/minions_proxy:CHANGE_ME_WITH_GIT_COMMIT",
+      		"essential": false,
+      		"memory": 256,
+			"portMappings": [
+				{
+				  "hostPort": 80,
+				  "containerPort": 8080
+				}
+		  	],
+			"environment": [
+              {
+                "name": "CONTAINER_NAME",
+                "value": "test_minions_proxy"
+              }
+			]
+    	}
+	]
+}

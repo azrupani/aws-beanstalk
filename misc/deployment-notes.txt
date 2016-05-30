@@ -1,0 +1,35 @@
+for x in <APP-PREFIX>-app-int <APP-PREFIX>-minions-int <APP-PREFIX>-rproxy-ext; do echo "Uploading the following:"; ls
+beanstalk-artefacts/$x/$x.zip; aws s3 cp beanstalk-artefacts/$x/$x.zip s3://beanstalk-artefacts/$x.zip; done;
+
+# Create application and application version in step 1 - AWS Beanstalk
+# Create environment - AWS Beanstalk - this does the deployment as well
+
+# Application
+
+aws elasticbeanstalk create-application-version --application-name '<APP-PREFIX>-app' --version-label 'v1' --description 'v1
+Version of the ap-app-int application' --source-bundle S3Bucket="beanstalk-artefacts",S3Key="<APP-PREFIX>-app-int.zip" --process
+--auto-create-application
+
+aws elasticbeanstalk create-environment --application-name '<APP-PREFIX>-app' --environment-name '<APP-PREFIX>-app-int' --cname-prefix
+'<APP-PREFIX>-app-int' --version-label 'v1' --solution-stack-name '64bit Amazon Linux 2016.03 v2.1.1 running Multi-container
+Docker 1.9.1 (Generic)'
+
+# Minions
+
+aws elasticbeanstalk create-application-version --application-name '<APP-PREFIX>-minions' --version-label 'v1' --description 'v1
+Version of the ap-app-int application' --source-bundle S3Bucket="beanstalk-artefacts",S3Key="<APP-PREFIX>-minions-int.zip"
+--process --auto-create-application
+
+aws elasticbeanstalk create-environment --application-name '<APP-PREFIX>-minions' --environment-name '<APP-PREFIX>-minions-int'
+--cname-prefix '<APP-PREFIX>-minions-int' --version-label 'v1' --solution-stack-name '64bit Amazon Linux 2016.03 v2.1.1 running
+Multi-container Docker 1.9.1 (Generic)'
+
+# Reverse Proxy
+
+aws elasticbeanstalk create-application-version --application-name '<APP-PREFIX>-rproxy' --version-label 'v1' --description 'v1
+Version of the ap-app-int application' --source-bundle S3Bucket="beanstalk-artefacts",S3Key="<APP-PREFIX>-rproxy-ext.zip"
+--process --auto-create-application
+
+aws elasticbeanstalk create-environment --application-name '<APP-PREFIX>-rproxy' --environment-name '<APP-PREFIX>-rproxy-ext'
+--cname-prefix '<APP-PREFIX>-rproxy-ext' --version-label 'v1' --solution-stack-name '64bit Amazon Linux 2016.03 v2.1.1 running
+Multi-container Docker 1.9.1 (Generic)'

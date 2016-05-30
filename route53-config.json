@@ -1,0 +1,18 @@
+{
+"Comment": "Adding Route53 Entry for environment trial for trial-1463970538 on Mon May 23 12:28:58 AEST 2016",
+"Changes": [
+  {
+	"Action": "CREATE",
+	"ResourceRecordSet": {
+	  "Name": "beanstalk-ui-trial-1463970538.<ADDME>.",
+	  "Type": "CNAME",
+	  "TTL": 300,
+	  "ResourceRecords": [
+		{
+		  "Value": "<APP-PREFIX>-rproxy-trial.ap-southeast-2.elasticbeanstalk.com."
+		}
+	  ]
+	}
+  }
+]
+}

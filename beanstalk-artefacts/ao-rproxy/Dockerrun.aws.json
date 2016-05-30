@@ -1,0 +1,18 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	"volumes": [],
+	"containerDefinitions": [
+    	{
+      		"name": "<APP-PREFIX>-rp",
+      		"image": "registry.<ADDME>.<DOMAIN>:5000/syseng/<APP-PREFIX>-rp:trial-1463970538",
+      		"essential": true,
+      		"memory": 256,
+			"portMappings": [
+				{
+				  "hostPort": 80,
+				  "containerPort": 80
+				}
+		  	]
+    	}
+	]
+}
